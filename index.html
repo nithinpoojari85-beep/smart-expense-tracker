@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <!-- Auth Pages (Login/Registration) -->
+  <div id="authContainer" class="auth-container" aria-hidden="true">
+    <div class="auth-box" role="dialog" aria-labelledby="authTitle">
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form">
+        <h2 id="authTitle">🔐 Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" class="auth-input" required />
+        <input type="password" id="loginPassword" placeholder="Password" class="auth-input" required />
+        <button type="submit" class="auth-btn">Login</button>
+        <p class="auth-toggle">Don't have an account?
+          <button type="button" id="showRegisterBtn" class="link-btn">Register</button>
+        </p>
+      </form>
+
+      <form id="registerForm" class="auth-form" style="display: none;">
+        <h2>📝 Register</h2>
+        <input type="text" id="registerName" placeholder="Full Name" class="auth-input" required />
+        <input type="email" id="registerEmail" placeholder="Email" class="auth-input" required />
+        <input type="password" id="registerPassword" placeholder="Password (min 6 chars)" class="auth-input" required />
+        <input type="password" id="registerConfirm" placeholder="Confirm Password" class="auth-input" required />
+        <button type="submit" class="auth-btn">Register</button>
+        <p class="auth-toggle">Already have an account?
+          <button type="button" id="showLoginBtn" class="link-btn">Login</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div id="appContainer" class="container" style="display: none;" aria-hidden="true">
+    <header class="header">
+      <div>
+        <h1>💰 Smart Expense Tracker</h1>
+        <p class="subtitle">Manage your income and expenses easily</p>
+      </div>
+
+      <div class="header-buttons">
+        <span id="userDisplay" class="user-display" aria-live="polite"></span>
+        <button id="darkBtn" class="dark-btn" type="button">🌙 Dark Mode</button>
+        <button id="logoutBtn" class="logout-btn" type="button">🚪 Logout</button>
+      </div>
+    </header>
+
+    <div class="date-time"><h3 id="currentDate" aria-live="polite"></h3></div>
+
+    <section class="dashboard">
+      <div class="card balance-card">
+        <h3>Total Balance</h3>
+        <h2 id="balance">₹0</h2>
+      </div>
+      <div class="card income-card">
+        <h3>Total Income</h3>
+        <h2 id="income">₹0</h2>
+      </div>
+      <div class="card expense-card">
+        <h3>Total Expense</h3>
+        <h2 id="expense">₹0</h2>
+      </div>
+    </section>
+
+    <section class="budget-section">
+      <h2>Monthly Budget</h2>
+      <input type="number" id="budget" placeholder="Enter Monthly Budget" min="0" />
+      <button id="saveBudgetBtn" type="button">💾 Save Budget</button>
+      <div class="progress"><div id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div></div>
+    </section>
+
+    <section class="transaction-form">
+      <h2>Add Transaction</h2>
+      <input type="text" id="description" placeholder="Description" />
+      <input type="number" id="amount" placeholder="Amount" step="0.01" />
+      <input type="date" id="date" />
+      <select id="type">
+        <option value="">Select Type</option>
+        <option value="income">💰 Income</option>
+        <option value="expense">💸 Expense</option>
+      </select>
+      <select id="category">
+        <option value="">Select Category</option>
+        <option value="Salary">💼 Salary</option>
+        <option value="Food">🍔 Food</option>
+        <option value="Shopping">🛒 Shopping</option>
+        <option value="Travel">🚗 Travel</option>
+        <option value="Bills">💡 Bills</option>
+        <option value="Entertainment">🎬 Entertainment</option>
+        <option value="Health">🏥 Health</option>
+        <option value="Education">📚 Education</option>
+        <option value="Others">🎁 Others</option>
+      </select>
+      <button id="addTransactionBtn" type="button">➕ Add Transaction</button>
+    </section>
+
+    <section class="search-box">
+      <input type="text" id="search" placeholder="🔍 Search Transaction..." />
+    </section>
+
+    <section class="filter">
+      <select id="filter">
+        <option value="all">All Transactions</option>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+    </section>
+
+    <section class="history">
+      <h2>Transaction History</h2>
+      <ul id="historyList" aria-live="polite"></ul>
+    </section>
+
+    <section class="actions">
+      <button id="downloadCSVBtn" type="button">📥 Export CSV</button>
+      <button id="downloadPDFBtn" type="button">📄 Export PDF</button>
+      <button id="clearBtn" class="clear-btn" type="button">🗑 Clear All Transactions</button>
+    </section>
+
+    <section class="chart-section">
+      <h2>Expense Analysis</h2>
+      <canvas id="expenseChart"></canvas>
+      <div id="categoryAnalysis" style="margin-top: 30px;"></div>
+    </section>
+
+    <div class="stats">
+      <div>Total Transactions : <span id="totalTransactions">0</span></div>
+      <div>Average Expense : <span id="averageExpense">₹0</span></div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
