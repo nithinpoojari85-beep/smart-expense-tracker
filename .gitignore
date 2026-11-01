@@ -1,0 +1,14 @@
+node_modules/
+frontend/node_modules/
+backend/.venv/
+backend/__pycache__/
+backend/app/__pycache__/
+**/__pycache__/
+.env
+.env.local
+.env.*.local
+frontend/dist/
+backend/.env
+.DS_Store
+coverage/
+*.log
